@@ -33,7 +33,7 @@ for data in data_file:
     df = df.dropna()
     df.head()
 
-    df_sv = df.iloc[-2500:]
+    df_sv = df.iloc[-1250:]
     
     with pm.Model() as m:
         y = df_sv["log_ret_diff"].values
