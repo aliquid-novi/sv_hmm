@@ -74,4 +74,4 @@ for data in data_file:
         idata = pm.sample(3000, tune = 3000, target_accept=0.97, chains=4, cores = 4, max_treedepth = 12)     
 
         az.to_json(idata, f'{data}_idata.json')
-        print(f"Exported {data}
+        print(f"Exported {data}")
