@@ -24,8 +24,10 @@ def ar1_build(eps, h0, mu, phi, sigma):
     return pt.concatenate([[h0], h_tail])  # length T
         
 for data in data_file:
+    path_data = data
+    name, ext = data.split(".")
 
-    data = Path(data)
+    data = Path(path_data)
     df = pd.read_csv(data, skipfooter = 1, engine = 'python').set_index('Time')
     df = df.iloc[::-1]
     df["log_ret_diff"] = np.log(df["Latest"]).diff()
@@ -33,7 +35,7 @@ for data in data_file:
     df = df.dropna()
     df.head()
 
-    df_sv = df.iloc[-1000:]
+    df_sv = df.iloc[-100:]
     
     with pm.Model() as m:
         y = df_sv["log_ret_diff"].values
@@ -71,8 +73,7 @@ for data in data_file:
 
         print(f"Now running model for {data}...")
         
-        idata = pm.sample(2000, tune = 2000, target_accept=0.97, chains=4, cores = 4, max_treedepth = 12)     
+        idata = pm.sample(50, tune = 50, target_accept=0.97, chains=4, cores = 4, max_treedepth = 12)     
         
-        name, ext = data.split(".")
         az.to_json(idata, f'{name}_idata.json')
         print(f"Exported {data}")
