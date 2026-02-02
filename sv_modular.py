@@ -71,7 +71,7 @@ for data in data_file:
 
         print(f"Now running model for {data}...")
         
-        idata = pm.sample(3000, tune = 3000, target_accept=0.97, chains=4, cores = 4, max_treedepth = 12)     
+        idata = pm.sample(30, tune = 30, target_accept=0.97, chains=4, cores = 4, max_treedepth = 12)     
 
         az.to_json(idata, f'{data}_idata.json')
         print(f"Exported {data}")
