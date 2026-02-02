@@ -2,7 +2,7 @@ import numpy as np
 import pymc as pm
 import pytensor.tensor as pt
 from pytensor.scan import scan
-
+import arviz as az
 
 sample_kwargs = dict(
     draws=1500, tune=1500,
@@ -210,5 +210,6 @@ def build_sv_model(y, priors=BASE_PRIORS):
         nu = pm.Deterministic("nu", nu_minus_two + 2.0)
 
         pm.StudentT("r", nu=nu, mu=0.0, sigma=pt.exp(h/2), observed=y)
+
 
     return m
