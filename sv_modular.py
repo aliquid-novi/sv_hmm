@@ -7,7 +7,7 @@ import pytensor.tensor as pt
 from pathlib import Path
 from pytensor.scan import scan
 
-data_file = ['LYC_Daily.csv', '4D_Daily.csv', 'CBA_Daily.csv', 'EURUSD.csv', 'GBPJPY.csv', 'USDJPY.csv']
+data_file = ['LYC_Daily.csv', 'GBPJPY.csv', 'USDJPY.csv']
 
 def ar1_build(eps, h0, mu, phi, sigma):
     def step(eps_t, h_prev, mu, phi, sigma):
@@ -33,7 +33,7 @@ for data in data_file:
     df = df.dropna()
     df.head()
 
-    df_sv = df.iloc[-1250:]
+    df_sv = df.iloc[-1000:]
     
     with pm.Model() as m:
         y = df_sv["log_ret_diff"].values
@@ -71,7 +71,8 @@ for data in data_file:
 
         print(f"Now running model for {data}...")
         
-        idata = pm.sample(30, tune = 30, target_accept=0.97, chains=4, cores = 4, max_treedepth = 12)     
-
-        az.to_json(idata, f'{data}_idata.json')
+        idata = pm.sample(2000, tune = 2000, target_accept=0.97, chains=4, cores = 4, max_treedepth = 12)     
+        
+        name, ext = data.split(".")
+        az.to_json(idata, f'{name}_idata.json')
         print(f"Exported {data}")
