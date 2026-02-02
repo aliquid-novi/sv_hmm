@@ -35,7 +35,7 @@ for data in data_file:
     df = df.dropna()
     df.head()
 
-    df_sv = df.iloc[-100:]
+    df_sv = df.iloc[-1000:]
     
     with pm.Model() as m:
         y = df_sv["log_ret_diff"].values
@@ -73,7 +73,7 @@ for data in data_file:
 
         print(f"Now running model for {data}...")
         
-        idata = pm.sample(50, tune = 50, target_accept=0.97, chains=4, cores = 4, max_treedepth = 12)     
+        idata = pm.sample(1500, tune = 1500, target_accept=0.97, chains=4, cores = 4, max_treedepth = 12)     
         
         az.to_json(idata, f'{name}_idata.json')
         print(f"Exported {data}")
