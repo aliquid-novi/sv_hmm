@@ -1,7 +1,7 @@
 import arviz as az
 import pandas as pd
 import numpy as np
-import prior_pert_funcs as ppf
+import prior_pert_funcs_update as ppf
 import pymc as pm
 import pytensor.tensor as pt
 from pytensor.scan import scan
@@ -107,4 +107,5 @@ for file in idata_data:
     print("Implementing prior pertubations...")
     etas = [-0.5, -0.25, 0.0, 0.25, 0.5]
     prior_runs_phi = ppf.refit_prior_perturbation_grid(y, etas, cleaned_name, scheme="phi_raw_scale", prefix="prior_pert")
+
 
