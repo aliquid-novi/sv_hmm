@@ -94,15 +94,15 @@ for file in idata_data:
 
     sd = np.std(y)
     # delta_list = [0.5*sd, -0.5*sd, 1.0*sd, -1.0*sd]
-    delta_lst = [0.5*sd]
+    delta_list = [0.5*sd]
     t1, t2, t3 = rows_sorted[0:3]
     
     # t_list = [t1['t'], t2['t'], t3['t']] 
     t_list = [t1['t']]
     # Case Deletion Runs 
 
-    print("Implementing case deletion pertubations...")
-    case_deletion_runs = ppf.refit_case_deletion_grid(y, t_list, BASE_PRIORS, cleaned_name)
+    # print("Implementing case deletion pertubations...")
+    # case_deletion_runs = ppf.refit_case_deletion_grid(y, t_list, BASE_PRIORS, cleaned_name)
     
     print("Implementing observation pertubations...")
     obs_shift_runs = ppf.refit_obs_shift_grid(y, cleaned_name, t_list=t_list, delta_list=delta_list, )
@@ -110,5 +110,6 @@ for file in idata_data:
     print("Implementing prior pertubations...")
     etas = [-0.5, -0.25, 0.25, 0.5]
     prior_runs_phi = ppf.refit_prior_perturbation_grid(y, etas, cleaned_name, scheme="phi_raw_scale", prefix="prior_pert")
+
 
 
