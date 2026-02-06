@@ -19,8 +19,7 @@ BASE_PRIORS = {
     "nu_minus_two": {"rate": 1.0},
 }
 
-idata_data = [['CBA_Daily_idata.json', 'CBA_Daily.csv'], ['4D_Daily_idata.json', '4D_Daily.csv'], 
-              ['EURUSD_idata.json', 'EURUSD.csv']]
+idata_data = [['CBA_Daily_idata.json', 'CBA_Daily.csv'], ['4D_Daily_idata.json', '4D_Daily.csv']]
 
 sample_kwargs = dict(
     draws=1500, tune=1500,
@@ -110,6 +109,7 @@ for file in idata_data:
     print("Implementing prior pertubations...")
     etas = [-0.5, -0.25, 0.25, 0.5]
     prior_runs_phi = ppf.refit_prior_perturbation_grid(y, etas, cleaned_name, scheme="phi_raw_scale", prefix="prior_pert")
+
 
 
 
