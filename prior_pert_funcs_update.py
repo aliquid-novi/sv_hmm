@@ -5,7 +5,7 @@ from pytensor.scan import scan
 import arviz as az 
 
 sample_kwargs = dict(
-    draws=1500, tune=1500,
+    draws=15, tune=15,
     target_accept=0.97,
     chains=4, cores=4,
     max_treedepth=12,
@@ -210,5 +210,6 @@ def build_sv_model(y, priors=BASE_PRIORS):
         nu = pm.Deterministic("nu", nu_minus_two + 2.0)
 
         pm.StudentT("r", nu=nu, mu=0.0, sigma=pt.exp(h/2), observed=y)
+
 
     return m
