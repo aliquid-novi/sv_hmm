@@ -19,7 +19,7 @@ BASE_PRIORS = {
     "nu_minus_two": {"rate": 1.0},
 }
 
-idata_data = [['USDJPY_idata.json', 'USDJPY.csv'], ['GBPJPY_data.json', 'GBPJPY.csv']]
+idata_data = [['GBPJPY_data.json', 'GBPJPY.csv']]
 
 sample_kwargs = dict(
     draws=15, tune=15,
@@ -107,6 +107,7 @@ for file in idata_data:
     print("Implementing prior pertubations...")
     etas = [-0.5, -0.25, 0.25, 0.5]
     prior_runs_phi = ppf.refit_prior_perturbation_grid(y, etas, cleaned_name, scheme="phi_raw_scale", prefix="prior_pert")
+
 
 
 
