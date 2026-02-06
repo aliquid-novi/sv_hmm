@@ -22,8 +22,8 @@ BASE_PRIORS = {
 idata_data = [['CBA_Daily_idata.json', 'CBA_Daily.csv'], ['4D_Daily_idata.json', '4D_Daily.csv'], 
               ['EURUSD_idata.json', 'EURUSD.csv']]
 
-sample_kwargs_dryrun = dict(
-    draws=15, tune=15,
+sample_kwargs = dict(
+    draws=1500, tune=1500,
     target_accept=0.97,
     chains=4, cores=4,
     max_treedepth=12,
@@ -93,16 +93,16 @@ for file in idata_data:
     rows_sorted = sorted(rows, key=lambda r: r["score"], reverse=True)
 
     sd = np.std(y)
-    # delta_list = [0.5*sd, -0.5*sd, 1.0*sd, -1.0*sd]
-    delta_list = [0.5*sd]
+    delta_list = [0.5*sd, -0.5*sd, 1.0*sd, -1.0*sd]
+    # delta_list = [0.5*sd]
     t1, t2, t3 = rows_sorted[0:3]
     
-    # t_list = [t1['t'], t2['t'], t3['t']] 
-    t_list = [t1['t']]
+    t_list = [t1['t'], t2['t'], t3['t']] 
+    # t_list = [t1['t']]
     # Case Deletion Runs 
 
-    # print("Implementing case deletion pertubations...")
-    # case_deletion_runs = ppf.refit_case_deletion_grid(y, t_list, BASE_PRIORS, cleaned_name)
+    print("Implementing case deletion pertubations...")
+    case_deletion_runs = ppf.refit_case_deletion_grid(y, t_list, BASE_PRIORS, cleaned_name)
     
     print("Implementing observation pertubations...")
     obs_shift_runs = ppf.refit_obs_shift_grid(y, cleaned_name, t_list=t_list, delta_list=delta_list, )
@@ -110,6 +110,7 @@ for file in idata_data:
     print("Implementing prior pertubations...")
     etas = [-0.5, -0.25, 0.25, 0.5]
     prior_runs_phi = ppf.refit_prior_perturbation_grid(y, etas, cleaned_name, scheme="phi_raw_scale", prefix="prior_pert")
+
 
 
 
