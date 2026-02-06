@@ -7,7 +7,7 @@ import pytensor.tensor as pt
 from pathlib import Path
 from pytensor.scan import scan
 
-data_file = ['LYC_Daily.csv', 'GBPJPY.csv', 'USDJPY.csv']
+data_file = ['EURUSD.csv', 'CBA_Daily.csv', '4D_Daily.csv']
 
 def ar1_build(eps, h0, mu, phi, sigma):
     def step(eps_t, h_prev, mu, phi, sigma):
