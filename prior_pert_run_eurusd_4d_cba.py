@@ -110,7 +110,9 @@ for file in idata_data:
     etas = [-0.5, -0.25, 0.25, 0.5]
     scales = ['scale_all', 'tails']
     for scale in scales:
+        print(f"Going through {scale}")
         prior_runs_phi = ppf.refit_prior_perturbation_grid(y, etas, cleaned_name, scheme=scale, prefix=f"{scale}_prior_pert")
+
 
 
 
