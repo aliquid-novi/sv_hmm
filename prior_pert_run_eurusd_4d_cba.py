@@ -100,15 +100,17 @@ for file in idata_data:
     # t_list = [t1['t']]
     # Case Deletion Runs 
 
-    print("Implementing case deletion pertubations...")
-    case_deletion_runs = ppf.refit_case_deletion_grid(y, t_list, BASE_PRIORS, cleaned_name)
+    # print("Implementing case deletion pertubations...")
+    # case_deletion_runs = ppf.refit_case_deletion_grid(y, t_list, BASE_PRIORS, cleaned_name)
     
-    print("Implementing observation pertubations...")
-    obs_shift_runs = ppf.refit_obs_shift_grid(y, cleaned_name, t_list=t_list, delta_list=delta_list, )
+    # print("Implementing observation pertubations...")
+    # obs_shift_runs = ppf.refit_obs_shift_grid(y, cleaned_name, t_list=t_list, delta_list=delta_list, )
     
     print("Implementing prior pertubations...")
     etas = [-0.5, -0.25, 0.25, 0.5]
-    prior_runs_phi = ppf.refit_prior_perturbation_grid(y, etas, cleaned_name, scheme="phi_raw_scale", prefix="prior_pert")
+    scales = ['scale_all', 'tails']
+    for scale in scales:
+        prior_runs_phi = ppf.refit_prior_perturbation_grid(y, etas, cleaned_name, scheme=scale, prefix=f"{scale}_prior_pert")
 
 
 
